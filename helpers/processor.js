@@ -1,6 +1,6 @@
 'use strict'
-const _ = require('lodash');
-
+const _ = require('lodash'),
+    fs = require('fs');
 /**
  * @typedef ReturnProcess
  * @property {number} score
@@ -9,14 +9,30 @@ const _ = require('lodash');
  * @callback ProcessMethod
  * @param {Object} inputObject
  * @return {Promise<ReturnProcess>}
+ */
+
+
+/**
+ * @returns {Array<ProcessMethod>}
+ */
+function listProcessMethods(){
+    const processObjects = [];
+    fs.readdirSync(`${__dirname}/../processors`).forEach(fileProcessor => {
+        processObjects.push(require(`../processors/${fileProcessor}`));
+    });
+    return processObjects;
+}
+
+
+/**
  *
  * @param {Object} inputObject
- * @param {Array<ProcessMethod>} processMehods
  */
-function process(inputObject, processMehods) {
+function compute(inputObject) {
     return new Promise((resolve, reject) => {
         /** @type Array<Promise<ReturnProcess>> */
         const promiseArray = [];
+        const processMehods = listProcessMethods();
         for (let method of processMehods) {
             promiseArray.push(method(inputObject));
         }
@@ -27,4 +43,4 @@ function process(inputObject, processMehods) {
     });
 }
 
-module.exports = process;
+module.exports = compute;

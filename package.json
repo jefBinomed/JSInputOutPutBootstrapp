@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "postinstall": "nvm use",
-    "start": "npm run postinstall && node main.js",
+    "start": "node main.js -f $npm_config_file",
+    "all": "node main.js -d $npm_config_dir",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

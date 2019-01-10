@@ -12,7 +12,11 @@ const fs = require('fs');
  * @param {OutToInstructions} convertionMethod
  */
 function writeOutput(inputFileName, outputObject, convertionMethod) {
-    const outputFile = fs.createWriteStream('outputs/' + (inputFileName ? inputFileName : 'output.out'));
+    const outputDir = `${__dirname}/../outputs`;
+    if (!fs.existsSync(outputDir)){
+        fs.mkdirSync(outputDir);
+    }
+    const outputFile = fs.createWriteStream(`${__dirname}/../outputs/` + (inputFileName ? inputFileName : 'output.out'));
     const writeInstructions = convertionMethod(outputObject);
     writeInstructions.forEach(instruction => outputFile.write(`${instruction} \n`));
     outputFile.end();
