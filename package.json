@@ -1,0 +1,30 @@
+{
+  "name": "jsinputoutputbootstrapp",
+  "version": "1.0.0",
+  "description": "bootstrapproject",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "nvm use",
+    "start": "npm run postinstall && node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefBinomed/JSInputOutPutBootstrapp.git"
+  },
+  "keywords": [
+    "javascript",
+    "node"
+  ],
+  "author": "jefbinomed",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jefBinomed/JSInputOutPutBootstrapp/issues"
+  },
+  "homepage": "https://github.com/jefBinomed/JSInputOutPutBootstrapp#readme",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "lodash": "^4.17.11",
+    "ramda": "^0.26.1"
+  }
+}
