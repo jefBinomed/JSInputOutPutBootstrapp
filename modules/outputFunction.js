@@ -4,12 +4,18 @@ const _ = require('lodash'),
 
 
 /**
+ * Transform an output object to a list of string. Each string will be write into an output file
+ *
  * @param {Object} objectToConvert
  * @returns {Array<String>}
  */
 function convert(objectToConvert){
     /**@type {Array<String>} */
     const instructions = [];
+
+    /**
+     * Code Goes Here ▼
+     */
 
     return instructions;
 }
