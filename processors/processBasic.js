@@ -1,4 +1,7 @@
 'use strict'
+const _ = require('lodash'),
+    R = require('ramda'),
+    computeScore = require('../modules/scoreFunction.js');
 
 
 /**
@@ -8,15 +11,16 @@
  * @property {Object} outputObject
  *
  * @param {Object} inputObject
- * @return {Promise<ReturnProcess>}
+ * @return {ReturnProcess}
  */
 function processInput(inputObject){
-    return new Promise((resolve, reject)=>{
-        resolve({
-            score:0,
-            outputObject: {}
-        });
-    });
+    const outputObject = {};
+
+
+    return {
+        score: computeScore(inputObject, outputObject),
+        outputObject
+    };
 }
 
 module.exports = processInput;
