@@ -1,7 +1,6 @@
 'use strict'
 
 const parse = require('./helpers/parser.js'),
-    {computeAll, computeThread} = require('./helpers/processor.js'),
     writeOutput = require('./helpers/writer.js'),
     parseMethod = require('./modules/parseFunction.js'),
     convertMethod = require('./modules/outputFunction.js'),
@@ -30,8 +29,12 @@ async function main(program) {
 
         // We parse then we do the conversion
         try {
+            let computeMethod = require('./helpers/processor.js');
+            if (program.multi){
+                computeMethod = require('./helpers/processorMultiThread.js');
+            }
             const result = await parse(program.file, parseMethod);
-            const output = await program.multi ? computeThread(result) : computeAll(result);
+            const output = await computeMethod(result);
             writeOutput(program.file.split("/")[1] + "_output", output, convertMethod);
 
         } catch (error) {

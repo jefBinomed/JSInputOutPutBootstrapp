@@ -1,6 +1,6 @@
 'use strict'
 const _ = require('lodash'),
-    fs = require('fs');
+    {listProcessMethods} = require('./listProcess.js');
 /**
  * @typedef ReturnProcess
  * @property {number} score
@@ -13,22 +13,10 @@ const _ = require('lodash'),
 
 
 /**
- * @returns {Array<ProcessMethod>}
- */
-function listProcessMethods(){
-    const processObjects = [];
-    fs.readdirSync(`${__dirname}/../processors`).forEach(fileProcessor => {
-        processObjects.push(require(`../processors/${fileProcessor}`));
-    });
-    return processObjects;
-}
-
-
-/**
  *
  * @param {Object} inputObject
  */
-function computeAll(inputObject) {
+function compute(inputObject) {
     return new Promise((resolve, reject) => {
         /** @type Array<ReturnProcess> */
         const promiseArray = [];
@@ -45,26 +33,4 @@ function computeAll(inputObject) {
     });
 }
 
-/**
- *
- * @param {Object} inputObject
- */
-function computeThread(inputObject) {
-    return new Promise((resolve, reject) => {
-        /** @type Array<Promise<ReturnProcess>> */
-        const promiseArray = [];
-        const processMehods = listProcessMethods();
-        for (let method of processMehods) {
-            promiseArray.push(method(inputObject));
-        }
-        Promise.all(promiseArray)
-            .then(results => {
-                resolve(_.maxBy(results, (o) => o.score).outputObject);
-            });
-    });
-}
-
-module.exports = {
-    computeAll,
-    computeThread
-};
+module.exports = compute;

@@ -5,8 +5,10 @@
   "main": "main.js",
   "scripts": {
     "postinstall": "nvm use",
-    "start": "node main.js -f $npm_config_file",
-    "all": "node main.js -d $npm_config_dir",
+    "start": "node main.js -f",
+    "all": "node main.js -d",
+    "multi": "node --experimental-worker main.js -f",
+    "multi-all": "node --experimental-worker main.js -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

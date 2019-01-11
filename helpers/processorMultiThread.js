@@ -1,0 +1,52 @@
+'use strict'
+const _ = require('lodash'),
+    fs = require('fs'),
+    {listProcessPaths} = require('./listProcess.js'),
+    {Worker, isMainThread, parentPort, workerData} = require('worker_threads');
+/**
+ * @typedef ReturnProcess
+ * @property {number} score
+ * @property {Object} outputObject
+ *
+ * @callback ProcessMethod
+ * @param {Object} inputObject
+ * @return {ReturnProcess}
+ */
+
+
+/**
+ *
+ * @param {Object} inputObject
+ */
+function compute(inputObject) {
+    return new Promise((resolve, reject) => {
+        /** @type Array<Promise<ReturnProcess>> */
+        const promiseArray = [];
+        const processMehods = listProcessPaths();
+        for (let method of processMehods) {
+            promiseArray.push(new Promise((resolveMethod, rejectMethod)=>{
+                const processWorker = new Worker(`${__dirname}/workerExecute.js`,{
+                    workerData: {
+                        path: method,
+                        input: inputObject
+                    }
+                });
+                processWorker.on('message',(output) => {
+                    resolveMethod(output);
+                });
+                processWorker.on('error', (err) => {rejectMethod(err)});
+                processWorker.on('exit', (code) => {
+                    if (code != 0){
+                        rejectMethod(`Worker stopped with exit code ${code}`);
+                    }
+                })
+            }));
+        }
+        Promise.all(promiseArray)
+            .then(results => {
+                resolve(_.maxBy(results, (o) => o.score).outputObject);
+            });
+    });
+}
+
+module.exports = compute;
