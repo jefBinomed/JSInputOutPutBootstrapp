@@ -17,7 +17,9 @@ const fs = require('fs');
  function listProcessPaths(){
     const processObjects = [];
     fs.readdirSync(`${__dirname}/../processors`).forEach(fileProcessor => {
-        processObjects.push(`../processors/${fileProcessor}`);
+        if (fileProcessor.endsWith('.js')){
+            processObjects.push(`../processors/${fileProcessor}`);
+        }
     });
     return processObjects;
  }
@@ -27,7 +29,7 @@ const fs = require('fs');
  */
 function listProcessMethods(){
     const processObjects = [];
-    return listProcessPaths().map(path => require(path));
+    return listProcessPaths().map(path => {return {name : path, method : require(path)}});
 }
 
 module.exports = {
