@@ -18,8 +18,9 @@ const _ = require('lodash'),
  * Compute the result with a copy of input object each times
  *
  * @param {Object} inputObject
+ * * @param {boolean} log : true if we need to logs informations
  */
-function compute(inputObject) {
+function compute(inputObject, log) {
     return new Promise((resolve, reject) => {
         /** @type Array<Promise<ReturnProcess>> */
         const promiseArray = [];
@@ -33,6 +34,9 @@ function compute(inputObject) {
                     }
                 });
                 processWorker.on('message',(output) => {
+                    if (log && output){
+                        console.log(`Method : ${method} have score : ${output.score}`);
+                    }
                     resolveMethod(output);
                 });
                 processWorker.on('error', (err) => {rejectMethod(err)});

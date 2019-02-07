@@ -10,6 +10,7 @@ const parse = require('./helpers/parser.js'),
 
 program
     .version('0.0.1')
+    .option('-l, --log', 'if set, will log some informations like result of each functions')
     .option('-f, --file <file>', 'Input File')
     .option('-d, --dir <directory>', 'target all files in input Dir')
     .option('-multi, --multi', 'is set We use Multithread nodeJS else, we use Promise.All')
@@ -35,8 +36,8 @@ async function main(program) {
                 computeMethod = require('./helpers/processorMultiThread.js');
             }
             const result = await parse(program.file, parseMethod, finalParseMethod);
-            const output = await computeMethod(result);
-            writeOutput(program.file.split("/")[1] + "_output", output, convertMethod);
+            const output = await computeMethod(result, program.log);
+            writeOutput(program.file.split("/")[2] + "_output", output, convertMethod);
 
         } catch (error) {
             console.error('Parse Error ! %s', error);
