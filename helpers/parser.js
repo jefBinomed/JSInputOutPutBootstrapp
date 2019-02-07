@@ -7,12 +7,18 @@
  * @param {string} line : the string corresponding to the line
  * @param {Object} result : the ouputObject (it's an input / output param)
  * @throws exceptions when there is a problem
+ * 
+ * @callback FinalParseOperationCallBack a callback method called when the parsing is finish
+ * @param {Object} parseResult : the basic parsing result
+ * @returns {Obejct} a modifyed object
+ * @throws exceptions when there is a problem
  *
  * @param {string} filePath
  * @param {LineCallBack} callback
+ * @param {FinalParseOperationCallBack} finalParseCallback
  * @returns {Promise<Object>} return in promis the result of the parsing
  */
-function parse(filePath, callback) {
+function parse(filePath, callback, finalParseCallback) {
     return new Promise((resolve, reject) => {
         let lineCount = 0,
             parseError = false,
@@ -38,7 +44,7 @@ function parse(filePath, callback) {
             if (parseError) {
                 reject(parseErrorMessage);
             } else {
-                resolve(result);
+                resolve(finalParseCallback(result));
             }
         });
     })
