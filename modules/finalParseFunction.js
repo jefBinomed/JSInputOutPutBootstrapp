@@ -17,6 +17,20 @@ function finalParseOperation(parseResult) {
      * Code Goes Here ▼
      */
 
+    finalObject.vehicules = createVehicules(finalObject);
+
     return finalObject;
 }
+
+function createVehicules(data) {
+    return Array(data.fileDesc.numberVehicules).fill(null).map((_, index) => ({
+        id: index,
+        nbRides: 0,
+        rides: [],
+        position: { col: 0, row: 0 },
+        currentRide: null,
+        clock: 0
+    }));
+}
+
 module.exports = finalParseOperation;

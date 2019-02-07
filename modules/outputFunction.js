@@ -19,7 +19,7 @@ function convert(objectToConvert){
      */
     objectToConvert.vehicules.forEach((vehicule) => {
 		const join = vehicule.rides.map(ride => ride.idRide).join(' ');
-		instructions.push(`${vehicule.rides.length} ${join}\n`); // again
+		instructions.push(`${vehicule.rides.length} ${join}`); // again
 	});
 
     return instructions;

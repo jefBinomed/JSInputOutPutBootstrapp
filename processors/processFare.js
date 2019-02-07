@@ -2,8 +2,8 @@
 const _ = require('lodash'),
     R = require('ramda'),
     computeScore = require('../modules/scoreFunction.js'),
-    canTakeRide = require('../libs/canTakeRide.js'),
-    getRideInfo = require('../libs/getRideInfo.js');
+    getRideInfo = require('../libs/getRideInfo.js'),
+    canTakeRide = require('../libs/canTakeRide.js');
 
 
 /**
@@ -15,19 +15,25 @@ const _ = require('lodash'),
  * @param {Object} inputObject
  * @return {ReturnProcess}
  */
-function processInput(inputObject){
+function processInput(inputObject) {
     const outputObject = {};
 
     inputObject.rides.forEach(ride => {
-        const availableVehicule = inputObject.vehicules.filter(v => canTakeRide(v, ride))[0];
+        const notUsedVehicules = inputObject.vehicules.filter(v => v.rides.length === 0);
+        let usedVehicules = notUsedVehicules;
+        if (notUsedVehicules.length === 0) {
+            usedVehicules = inputObject.vehicules;
+        }
+        const availableVehicule = usedVehicules.filter(v => canTakeRide(v, ride))[0];
         if (availableVehicule) {
-            const infos = getRideInfo(availableVehicule, ride, availableVehicule.clock);
+            const infos = getRideInfo(availableVehicule, ride);
             ride.vehiculeClock = availableVehicule.clock;
             availableVehicule.rides.push(ride);
-			availableVehicule.position = ride.endPoint;
+            availableVehicule.position = ride.endPoint;
             availableVehicule.clock = infos.totalTime;
         }
     })
+
     outputObject.vehicules = inputObject.vehicules;
 
     return {
