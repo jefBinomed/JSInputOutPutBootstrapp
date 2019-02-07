@@ -11,13 +11,11 @@ const _ = require('lodash'),
  * @param {Object} result
  */
 function parse(lineCount, line, result){
-    const result = {};
-
     /**
      * Code Goes Here ▼
      */
 
-    return result;
+    if (lineCount === 0){
 }
 
 
