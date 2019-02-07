@@ -5,6 +5,7 @@ const _ = require('lodash'),
 
 /**
  * Transform a set of row to a javascript object
+ * This method is only execute once
  *
  * @param {number} lineCount
  * @param {string} line
