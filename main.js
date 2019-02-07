@@ -3,6 +3,7 @@
 const parse = require('./helpers/parser.js'),
     writeOutput = require('./helpers/writer.js'),
     parseMethod = require('./modules/parseFunction.js'),
+    finalParseMethod = require('./modules/finalParseFunction.js'),
     convertMethod = require('./modules/outputFunction.js'),
     program = require('commander'),
     fs = require('fs');
@@ -33,7 +34,7 @@ async function main(program) {
             if (program.multi){
                 computeMethod = require('./helpers/processorMultiThread.js');
             }
-            const result = await parse(program.file, parseMethod);
+            const result = await parse(program.file, parseMethod, finalParseMethod);
             const output = await computeMethod(result);
             writeOutput(program.file.split("/")[1] + "_output", output, convertMethod);
 
