@@ -15,6 +15,7 @@ const _ = require('lodash'),
 
 
 /**
+ * Compute the result with a copy of input object each times
  *
  * @param {Object} inputObject
  */

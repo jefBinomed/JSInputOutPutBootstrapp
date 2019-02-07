@@ -13,7 +13,8 @@ const _ = require('lodash'),
 
 
 /**
- *
+ * Compute the results with a copy of the input each time
+ * 
  * @param {Object} inputObject
  */
 function compute(inputObject) {
