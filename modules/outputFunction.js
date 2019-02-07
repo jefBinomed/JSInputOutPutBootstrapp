@@ -16,6 +16,10 @@ function convert(objectToConvert){
     /**
      * Code Goes Here ▼
      */
+    objectToConvert.vehicules.forEach((vehicule) => {
+		const join = vehicule.rides.map(ride => ride.idRide).join(' ');
+		instructions.push(`${vehicule.rides.length} ${join}\n`); // again
+	});
 
     return instructions;
 }
