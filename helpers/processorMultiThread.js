@@ -29,7 +29,7 @@ function compute(inputObject) {
                 const processWorker = new Worker(`${__dirname}/workerExecute.js`,{
                     workerData: {
                         path: method,
-                        input: inputObject
+                        input: {...inputObject}
                     }
                 });
                 processWorker.on('message',(output) => {

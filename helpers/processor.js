@@ -24,7 +24,7 @@ function compute(inputObject) {
         const processMehods = listProcessMethods();
         for (let method of processMehods) {
             promiseArray.push(new Promise((resolveMethod, rejectMethod) => {
-                resolveMethod(method(inputObject));
+                resolveMethod(method({...inputObject}));
             }));
         }
         Promise.all(promiseArray)
