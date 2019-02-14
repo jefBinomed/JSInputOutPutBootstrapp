@@ -20,28 +20,49 @@ async function main(program) {
 
 
     // We check the parameters
-    if (!program.file) {
+    if (!program.file && !program.dir) {
         console.error("Argument file missing ! ");
         return;
     }
 
     try {
-        // We check if the file exists
-        fs.accessSync(program.file, fs.F_OK);
 
-        // We parse then we do the conversion
-        try {
-            let computeMethod = require('./helpers/processor.js');
-            if (program.multi){
-                computeMethod = require('./helpers/processorMultiThread.js');
-            }
-            const result = await parse(program.file, parseMethod, finalParseMethod);
-            const output = await computeMethod(result, program.log);
-            writeOutput(program.file.split("/")[2] + "_output", output, convertMethod);
+        const inputFiles = [];
+        if (program.file){
+            inputFiles.push(program.file);
+        }else if (program.dir){
+            fs.readdirSync(program.dir).forEach(fileProcessor => {
+                inputFiles.push(`${program.dir}/${fileProcessor}`);
+            });
+        }
 
-        } catch (error) {
-            console.error('Parse Error ! %s', error);
-        };
+        inputFiles.forEach(async file => {
+
+            // We check if the file exists
+            fs.accessSync(file, fs.F_OK);
+    
+            // We parse then we do the conversion
+            try {
+                let computeMethod = require('./helpers/processor.js');
+                if (program.multi){
+                    computeMethod = require('./helpers/processorMultiThread.js');
+                }
+                const result = await parse(file, parseMethod, finalParseMethod);
+                if (program.log) {
+                    console.log(`-------------------------------
+FILE : ${file} parsed`)
+                }
+                const output = await computeMethod(result, program.log);
+                if (program.log) {
+                    console.log(`FILE : ${file} computed
+-------------------------------`)
+                }
+                writeOutput(file.split("/")[2] + "_output", output, convertMethod);
+    
+            } catch (error) {
+                console.error('Parse Error ! %s', error);
+            };
+        })
 
     } catch (e) {
         console.error(e);
