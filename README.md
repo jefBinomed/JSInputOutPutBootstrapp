@@ -34,6 +34,7 @@ function processInput(inputObject){
 4 ways to run :
 
 * `npm start $PATH_TO_INPUT_FILE` : will run all computation for `$PATH_TO_INPUT_FILE`
-* `npm run all` : will run all computation for all files placed in `/inputs` directory
+* `npm run all $PATH_TO_INPUT_DIRECTORY` : will run all computation for all files placed in `$PATH_TO_INPUT_DIRECTORY` directory
 * `npm run multi $PATH_TO_INPUT_FILE` : will run all computation (One thread for each computation) for `$PATH_TO_INPUT_FILE` with the flag `--experimental-worker`
-* `npm run mutli-all` : will run all computation (One thread for each computation) for all files placed in `/inputs` directory with the flag `--experimental-worker`
+* `npm run mutli-all  $PATH_TO_INPUT_DIRECTORY` : will run all computation (One thread for each computation) for all files placed in `/inputs` directory with the flag `--experimental-worker`
+* If you add `-l` to the command line, it will display somes logs (score by apply method, file name, ...)
