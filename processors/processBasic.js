@@ -12,7 +12,7 @@ const _ = require('lodash'),
  * 
  * 
  * @typedef InputObject
- * @property Array<Photo> photos
+ * @property {Array<Photo}> photos
  * @property {Object} photoMap
  * @property {Object} tagMap
  *
