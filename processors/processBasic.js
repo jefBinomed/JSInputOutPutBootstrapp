@@ -14,8 +14,11 @@ const _ = require('lodash'),
  * @return {ReturnProcess}
  */
 function processInput(inputObject){
-    const outputObject = {};
+    const outputObject = { liste: []};
 
+    outputObject.liste.push(inputObject.photos[0].id)
+    outputObject.liste.push(inputObject.photos[1].id + ' ' + inputObject.photos[2].id)
+    outputObject.liste.push(inputObject.photos[3].id)
 
     return {
         score: computeScore(inputObject, outputObject),

@@ -17,8 +17,10 @@ function convert(objectToConvert){
     /**
      * Code Goes Here ▼
      */
+    instructions[0] = objectToConvert.liste.length;
+    
 
-    return instructions;
+    return instructions.concat(objectToConvert.liste);
 }
 
 
