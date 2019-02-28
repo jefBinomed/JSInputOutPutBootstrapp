@@ -1,0 +1,98 @@
+'use strict'
+const _ = require('lodash'),
+    R = require('ramda'),
+    computeScore = require('../modules/scoreFunction.js');
+
+
+/**
+ * @typedef Photo
+ * @property {string} id
+ * @property {string} orientation
+ * @property {Array<string>} tags
+ * 
+ * 
+ * @typedef InputObject
+ * @property {Array<Photo}> photos
+ * @property {Object} photoMap
+ * @property {Object} tagMap
+ *
+ * @typedef ReturnProcess
+ * @property {number} score
+ * @property {Object} outputObject
+ *
+ * @param {InputObject} inputObject
+ * @return {ReturnProcess}
+ */
+function processInput(inputObject){
+
+    const [photoArrayVertical, photoArrayHorizontal]  = _.partition(inputObject.photos,(obj) => obj.orientation === 'V');
+
+    console.log(`
+    Size of Photo Array V: ${photoArrayVertical.length}
+    Size of Photo Array H: ${photoArrayHorizontal.length}
+    `);
+
+    let slidesOutput = [];
+
+
+    let [photoIntersect, ...otherPhotos] = photoArrayVertical
+    
+    while(otherPhotos.length > 0) {
+        const result = getOtherPhoto(photoIntersect, otherPhotos)
+        const photoIntersect2 = result[0]
+        otherPhotos = result[1]
+
+        const tempSlide = {
+            id: `${photoIntersect.id}${photoIntersect2 && ` ${photoIntersect2.id}`}`,
+            tags: _.union(photoIntersect.tags, photoIntersect2 ? photoIntersect2.tags : [])
+        }
+        slidesOutput.push(tempSlide);
+        photoIntersect = otherPhotos[0];
+        _.remove(otherPhotos, (p)=> photoIntersect.id === p.id);
+    }
+    console.log('finish Grouping Verticals photos');
+
+    slidesOutput = slidesOutput.concat(photoArrayHorizontal);
+
+    [photoIntersect, ...otherPhotos] = slidesOutput;
+    const finalList = [photoIntersect.id];
+
+    while(otherPhotos.length > 0) {
+        const result = getOtherPhotoCommon(photoIntersect, otherPhotos)
+        const photoIntersect2 = result[0]
+        otherPhotos = result[1]
+        finalList.push(photoIntersect2.id);
+        _.remove(otherPhotos, (p)=> photoIntersect2.id === p.id);
+        photoIntersect = photoIntersect2;
+    }
+
+    
+    const outputObject = { liste: finalList};
+
+
+    return {
+        score: computeScore(inputObject, outputObject),
+        outputObject
+    };
+}
+
+function getOtherPhoto(photoV, photos) {
+    if (photos.length === 0) return [null, []]
+    let photoIntersect = photos.find((p) => _.intersection(p.tags, photoV.tags).length<= 1);
+    if (!photoIntersect){
+        photoIntersect = photos[0];
+    }
+    _.remove(photos, (p)=> p.id === photoIntersect.id);
+    return [photoIntersect, photos]
+}
+function getOtherPhotoCommon(photoV, photos) {
+    if (photos.length === 0) return [null, []]
+    let photoIntersect = photos.find((p) => _.intersection(p.tags, photoV.tags).length>= 1);
+    if (!photoIntersect){
+        photoIntersect = photos[0];
+    }
+    _.remove(photos, (p)=> p.id === photoIntersect.id);
+    return [photoIntersect, photos]
+}
+
+module.exports = processInput;
