@@ -23,7 +23,7 @@ function parse(lineCount, line, result){
     }else {
         const [orientation, nb, ...tags] = line.split(' ');
         const photo = {
-            id: lineCount -1,
+            id: `${lineCount -1}`,
             orientation,
             tags
         };
