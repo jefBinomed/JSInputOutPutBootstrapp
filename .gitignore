@@ -62,3 +62,6 @@ typings/
 
 outputs
 .DS_Store
+
+.idea
+Archive.zip
