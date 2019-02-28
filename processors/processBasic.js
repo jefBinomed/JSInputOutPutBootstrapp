@@ -5,12 +5,22 @@ const _ = require('lodash'),
 
 
 /**
+ * @typedef Photo
+ * @property {string} id
+ * @property {string} orientation
+ * @property {Array<string>} tags
+ * 
+ * 
+ * @typedef InputObject
+ * @property Array<Photo> photos
+ * @property {Object} photoMap
+ * @property {Object} tagMap
  *
  * @typedef ReturnProcess
  * @property {number} score
  * @property {Object} outputObject
  *
- * @param {Object} inputObject
+ * @param {InputObject} inputObject
  * @return {ReturnProcess}
  */
 function processInput(inputObject){
