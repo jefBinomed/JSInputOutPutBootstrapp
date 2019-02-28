@@ -22,12 +22,11 @@ function computeScore(input, output){
     /**
      * Code Goes Here ▼
      */
-    const [nbLine, ...slides] = output.liste;
 
-    slides.forEach((slide, i) => {
-        if (i === slides.length - 1) return;
+    output.liste.forEach((slide, i) => {
+        if (i === output.liste.length - 1) return;
 
-        score += getScoreForTwoSlides(slide, slides[i+1],input)
+        score += getScoreForTwoSlides(slide, output.liste[i+1],input)
 
     })
 
