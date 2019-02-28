@@ -9,7 +9,8 @@
     "all": "node main.js -d",
     "multi": "node --experimental-worker main.js -f",
     "multi-all": "node --experimental-worker main.js -d",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "score": "node main.js -l -f"
   },
   "repository": {
     "type": "git",
