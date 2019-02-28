@@ -42,7 +42,7 @@ function processInput(inputObject){
             tagList.forEach(tag => {
                 if (tag !== tagEntry.tagKey){
 
-                    _.remove(tagMap2[tag].idList, idSlide)
+                    _.remove(tagMap2[tag].idList, (idTemp) => idTemp === idSlide)
                 }
             })
         })
