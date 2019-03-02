@@ -17,16 +17,13 @@ const _ = require('lodash');
  * @returns {number}
  */
 function computeScore(input, output){
-    let score = 0;
-
     /**
      * Code Goes Here ▼
      */
-    output.liste.forEach((slide, i) => {
-        if (i === output.liste.length - 1) return;
-
-        score += getScoreForTwoSlides(slide, output.liste[i+1], input);
-    });
+    const slidePairs = output.liste.slice(0, -1).map((slide, i) => [slide, output.liste[i+1]]);
+    const score = _.sum(
+        slidePairs.map(([slide, nextSlide]) => getScoreForTwoSlides(slide, nextSlide, input))
+    );
 
     return score;
 }
@@ -43,18 +40,13 @@ function getScoreForTwoSlides(s1, s2, input) {
 
 function getTags(s, input) {
     if (!s || s.length === 0) return [];
+
     const [i1, i2] = s.split(' ');
-    const tags = {};
+    const tags1 = i1 ? input.photoMap[i1].tags : [];
+    const tags2 = i2 ? input.photoMap[i2].tags : [];
+    const tags = _.union(tags1, tags2);
 
-    if (i1) input.photoMap[i1].tags.forEach((tag) => {
-        tags[tag] = true;
-    });
-
-    if (i2) input.photoMap[i2].tags.forEach((tag) => {
-        tags[tag] = true;
-    });
-
-    return Object.keys(tags);
+    return _.uniq(tags);
 }
 
 module.exports = computeScore;
