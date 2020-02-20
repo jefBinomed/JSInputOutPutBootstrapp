@@ -28,10 +28,19 @@ const _ = require('lodash'),
  * 
  * @typedef Result
  * @property {Hash} hash
+ * 
+ * @typedef OutputLibrary
+ * @property {string} id
+ * @property {number} booksTobeScanNumber
+ * @property {string[]} idBooksArray
+ * 
+ * @typedef Output 
+ * @property {number} signupLibNumber
+ * @property {OutputLibrary[]} outputLibArray 
  *
  * @typedef ReturnProcess
  * @property {number} score
- * @property {Object} outputObject
+ * @property {Output} outputObject
  *
  * @param {Result} inputObject
  * @return {ReturnProcess}
