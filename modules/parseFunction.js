@@ -84,12 +84,51 @@ class Hash{
  * @param {string} line
  * @param {Result} result
  */
-function parse(lineCount, line, result){
-    /**
-     * Code Goes Here ▼
-     */
+function parse(lineCount, line, result) {
+    if (lineCount === 0){
+        const [bookCount, libraryCount, deadline] = line.split(' ');
+        result.hash = new Hash();
+        result.hash.currentDay = 0;
+        result.hash.deadline = deadline;
+        result.hash.bookArray = [];
+        result.hash.libArray = [];
+        return;
+    }
 
-    if (lineCount === 0){}
+    if (lineCount === 1) {
+        const bookScores = line.split(' ');
+        bookScores.forEach((score, index) => {
+            const book = new Book();
+            book.id = index;
+            book.score = score;
+            book.alreadyProcess = false;
+            result.hash.bookArray.push(book);
+        });
+        return;
+    }
+
+    if (lineCount % 2 === 0) {
+        result.currentLibrary = new Library();
+        const [ bookCount, signupProcessTime, bookShippingPerDay ] = line.split(' ');
+        result.currentLibrary.id = ( lineCount - 2 ) / 2;
+        result.currentLibrary.signupTime = signupProcessTime;
+        result.currentLibrary.parallelBooksNumber = bookShippingPerDay;
+        result.currentLibrary.booksArray = [];
+        return;
+    }
+
+    if (lineCount % 2 === 1) {
+        const booksInLibrary = line.split(' ');
+        booksInLibrary.forEach(bookId => {
+            result.currentLibrary.booksArray.push(result.hash.bookArray[bookId]);
+        });
+        result.hash.libArray.push(result.currentLibrary);
+        delete result.currentLibrary;
+        return;
+    }
+
+    console.error('NOT MANAGED LINE', lineCount, line);
+
 }
 
 
