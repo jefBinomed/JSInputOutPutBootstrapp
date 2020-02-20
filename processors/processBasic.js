@@ -46,9 +46,19 @@ const _ = require('lodash'),
  * @return {ReturnProcess}
  */
 function processInput(inputObject){
+    /** @type Output */
     const outputObject = {};
     console.log(inputObject.hash);
 
+    outputObject.signupLibNumber = inputObject.hash.libArray.length;
+    outputObject.outputLibArray = []
+    inputObject.hash.libArray.forEach((library) => {
+        /** @type OutputLibrary */
+        const outputLib = {}
+        outputLib.id = library.id;
+        outputLib.idBooksArray = library.booksArray.map((book)=>book.id); 
+        outputObject.outputLibArray.push(outputLib);
+    })
 
     return {
         score: computeScore(inputObject, outputObject),
