@@ -48,7 +48,7 @@ const _ = require('lodash'),
 function processInput(inputObject){
     /** @type Output */
     const outputObject = {};
-    console.log(inputObject.hash);
+    //console.log(inputObject.hash);
 
     outputObject.signupLibNumber = inputObject.hash.libArray.length;
     outputObject.outputLibArray = []
