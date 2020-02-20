@@ -47,6 +47,7 @@ const _ = require('lodash'),
  */
 function processInput(inputObject){
     const outputObject = {};
+    console.log(inputObject.hash);
 
 
     return {
