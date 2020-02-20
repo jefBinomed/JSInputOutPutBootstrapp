@@ -28,6 +28,7 @@ class Book{
         this.id;
         this.score;
         this.alreadyProcess;
+        this.libReferenceMap = {};
     }
 }
 class Library{
@@ -57,6 +58,7 @@ class Hash{
  * @property {string} id
  * @property {number} score
  * @property {boolean} alreadyProcessed
+ * @property {Object<string,Library>} libReferenceMap
  * 
  * 
  * @typedef Library

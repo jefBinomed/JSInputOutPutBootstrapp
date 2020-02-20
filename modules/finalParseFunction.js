@@ -6,6 +6,7 @@
  * @property {string} id
  * @property {number} score
  * @property {boolean} alreadyProcessed
+ * @property {Object<string, Library>} libReferenceMap
  * 
  * 
  * @typedef Library
@@ -32,7 +33,7 @@
  * This method is only execute once !
  * 
  * @param {Result} parseResult 
- * @returns {Object} the transform object
+ * @returns {Result} the transform object
  */
 function finalParseOperation(parseResult) {
     // We copy the object
@@ -41,6 +42,9 @@ function finalParseOperation(parseResult) {
     /**
      * Code Goes Here ▼
      */
+    finalObject.hash.libArray.forEach(library=>{
+        library.booksArray.forEach(book=>book.libReferenceMap[library.id] = library);
+    })
 
     return finalObject;
 }

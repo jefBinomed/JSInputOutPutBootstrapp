@@ -9,6 +9,7 @@ const _ = require('lodash'),
  * @property {string} id
  * @property {number} score
  * @property {boolean} alreadyProcessed
+ * @property {Object<string, Library>} libReferenceMap
  * 
  * 
  * @typedef Library
