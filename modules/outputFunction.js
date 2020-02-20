@@ -52,6 +52,15 @@ function convert(objectToConvert){
      * Code Goes Here ▼
      */
 
+    // Ligne 1 
+    instructions.push(objectToConvert.signupLibNumber);
+
+    // Ensemble de pair de ligne pour une librairie
+    objectToConvert.outputLibArray.forEach((outputLib) => {
+        instructions.push(`${outputLib.id} ${outputLib.idBooksArray.length}`)
+        instructions.push(`${outputLib.idBooksArray.join(' ')}`)
+    })
+
     return instructions;
 }
 
