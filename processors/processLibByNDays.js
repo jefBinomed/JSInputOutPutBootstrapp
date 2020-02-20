@@ -55,10 +55,10 @@ function processInput(inputObject){
 
     const libReferenceMap = {};
 
-    const numberDays = 10;
+    const numberDays = inputObject.hash.deadline / 3;
 
     function calcScoreLibForNumberDays(/** @type Library */lib, numberDay){
-        const booksSortByScore = lib.booksArray.sort((bookA, bookB)=> bookA.score - bookB.score);
+        const booksSortByScore = lib.booksArray.filter(book => book.score > 0).sort((bookA, bookB)=> bookA.score - bookB.score);
         let currentDay = 0;
         let score = 0;
         let incrementPerBook = 1 / lib.parallelBooksNumber;
@@ -67,7 +67,7 @@ function processInput(inputObject){
             score += book.score;
             bookArray.push(book)
             currentDay += incrementPerBook;
-            if (currentDay>numberDay){
+            if (currentDay>(numberDay - lib.signupTime)){
                 break;
             }
         }
