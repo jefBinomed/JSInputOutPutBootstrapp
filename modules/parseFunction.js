@@ -2,6 +2,30 @@
 const _ = require('lodash'),
     R = require('ramda');
 
+class Book{
+    constructor(){
+        this.id;
+        this.score;
+        this.alreadyProcess;
+    }
+}
+class Library{
+    constructor(){
+        this.id;
+        this.signupTime;
+        this.parallelBooksNumber;
+        this.booksArray;
+    }
+}
+
+class Hash{
+    constructor(){
+        this.libArray;
+        this.deadline;
+        this.currentDay;
+    }
+
+}
 
 /**
  * Transform a set of row to a javascript object
