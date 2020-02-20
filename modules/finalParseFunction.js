@@ -7,6 +7,7 @@
  * @property {number} score
  * @property {boolean} alreadyProcessed
  * @property {Object<string, Library>} libReferenceMap
+ * @property {Library[]} libReferenceArray
  * 
  * 
  * @typedef Library
@@ -43,7 +44,10 @@ function finalParseOperation(parseResult) {
      * Code Goes Here ▼
      */
     finalObject.hash.libArray.forEach(library=>{
-        library.booksArray.forEach(book=>book.libReferenceMap[library.id] = library);
+        library.booksArray.forEach(book=>{
+            book.libReferenceMap[library.id] = library
+            book.libReferenceArray.push(library)
+        });
     })
 
     return finalObject;

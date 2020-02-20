@@ -29,6 +29,7 @@ class Book{
         this.score;
         this.alreadyProcess;
         this.libReferenceMap = {};
+        this.libReferenceArray = []
     }
 }
 class Library{
@@ -59,6 +60,7 @@ class Hash{
  * @property {number} score
  * @property {boolean} alreadyProcessed
  * @property {Object<string,Library>} libReferenceMap
+ * @property {Library[]} libReferenceArray
  * 
  * 
  * @typedef Library
