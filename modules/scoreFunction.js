@@ -35,11 +35,18 @@
  */
 function computeScore(input, output){
     let score = 0;
+    const booksMap = input.hash.booksMap;
 
-    /**
-     * Code Goes Here ▼
-     */
-
+    output.outputLibArray.forEach((outLibrary => {
+        outLibrary.idBooksArray.forEach((bookId) => {
+            const book = booksMap[bookId];
+            if (!book.alreadyScored) {
+                score += parseInt(book.score);
+                book.alreadyScored = true;
+            }
+        });
+    }));
+    
     return score;
 }
 
