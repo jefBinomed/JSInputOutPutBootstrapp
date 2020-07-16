@@ -27,7 +27,7 @@
   "homepage": "https://github.com/jefBinomed/JSInputOutPutBootstrapp#readme",
   "dependencies": {
     "commander": "^2.19.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "ramda": "^0.26.1"
   }
 }
