@@ -1,6 +1,6 @@
 # Node Version
 
-You should use Node 10.5 or upper ! to run this project! There is an `.nrvmrc` file.
+You should use Node 14.x or upper ! to run this project! There is an `.nrvmrc` file.
 
 # Install
 

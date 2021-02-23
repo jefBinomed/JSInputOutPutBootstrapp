@@ -4,11 +4,10 @@
   "description": "bootstrapproject",
   "main": "main.js",
   "scripts": {
-    "postinstall": "nvm use",
     "start": "node main.js -f",
     "all": "node main.js -d",
-    "multi": "node --experimental-worker main.js -f",
-    "multi-all": "node --experimental-worker main.js -d",
+    "multi": "node main.js -f",
+    "multi-all": "node main.js -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
