@@ -16,7 +16,9 @@ function parse(lineCount, line, result){
      * Code Goes Here ▼
      */
 
-    if (lineCount === 0){}
+    if (lineCount === 0){
+       result.solution = line;
+    }
 }
 
 

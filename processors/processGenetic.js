@@ -1,8 +1,8 @@
 'use strict'
 const _ = require('lodash'),
     R = require('ramda'),
-    computeScore = require('../modules/scoreFunction.js');
-
+    computeScore = require('../modules/scoreFunction.js'),
+    solve = require('../genetic/example.js');
 
 /**
  *
@@ -14,9 +14,8 @@ const _ = require('lodash'),
  * @return {ReturnProcess}
  */
 function processInput(inputObject){
-    const outputObject = {};
-
-
+    console.log(inputObject);
+    const outputObject = solve(inputObject);
     return {
         score: computeScore(inputObject, outputObject),
         outputObject
