@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  *
@@ -9,14 +9,14 @@
  * @param {Object} output
  * @returns {number}
  */
-function computeScore(input, output){
-    let score = 0;
+function computeScore(input, output) {
+  let score = 0;
 
-    /**
-     * Code Goes Here ▼
-     */
+  /**
+   * Code Goes Here ▼
+   */
 
-    return score;
+  return score;
 }
 
 module.exports = computeScore;
