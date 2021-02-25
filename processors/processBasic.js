@@ -19,11 +19,14 @@ function processInput(inputObject) {
   };
 
   inputObject.intersections.forEach((intersection) => {
-    const streets = intersection.in.map((inStreet) => ({
-      streetId: inStreet.id,
-      streetName: inStreet.name,
-      timeGreenLight: 1
-    }));
+    const streets = intersection.in.map((inStreetId) => {
+      const inStreet = inputObject.streetsMap.get(inStreetId);
+      return {
+        streetId: inStreet.id,
+        streetName: inStreet.name,
+        timeGreenLight: 1
+      };
+    });
     outputObject.intersections.push({
       idIntersection: intersection.id,
       intersectionNumber: intersection.intersectionNumber,

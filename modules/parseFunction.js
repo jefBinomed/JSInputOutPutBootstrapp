@@ -62,8 +62,8 @@ function parse(lineCount, line, result) {
       };
       result.intersections.set(`intersec-${start}`, intersectionIn);
     }
-    intersectionIn.out.push(name);
-    intersectionOut.in.push(name);
+    intersectionIn.out.push(streetId);
+    intersectionOut.in.push(streetId);
   } else {
     const [streetsNumber, ...streets] = line.split(" ");
     const carId = `car-${lineCount}`;
